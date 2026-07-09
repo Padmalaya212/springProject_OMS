@@ -1,16 +1,35 @@
 package com.oms.config;
 
-	import org.springframework.context.annotation.Configuration;
-	import org.springframework.web.servlet.config.annotation.*;
+import java.util.Arrays;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
-	@Configuration
-	public class CorsConfig implements WebMvcConfigurer {
-	    @Override
-	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/api/**")
-	                .allowedOrigins("http://localhost:4200")
-	                .allowedMethods("GET", "POST", "PUT", "DELETE")
-	                .allowedHeaders("*");
-	    }
-	}
+@Configuration
+public class CorsConfig {
 
+    @Bean
+    public CorsFilter corsFilter() {
+
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Safe to keep true since we are using specific origins instead of "*"
+        config.setAllowCredentials(true);
+
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:4200"
+        ));
+
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowedMethods(Arrays.asList("*"));
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
+    }
+}
