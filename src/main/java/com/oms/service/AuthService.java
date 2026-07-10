@@ -34,7 +34,7 @@ public class AuthService {
             try {
                 customerRole = roleRepository.save(customerRole);
             } catch (StringIndexOutOfBoundsException | NullPointerException e) {
-                // Fail-safe container assignment fallback
+                
             }
         }
         
