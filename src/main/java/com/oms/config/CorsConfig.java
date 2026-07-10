@@ -19,7 +19,9 @@ public class CorsConfig {
         config.setAllowCredentials(true);
 
         config.setAllowedOriginPatterns(Arrays.asList(
-                "http://localhost:4200"
+                "http://localhost:4200",
+                "https://lambent-croissant-64abd6.netlify.app"
+                
         ));
 
         config.setAllowedHeaders(Arrays.asList("*"));
