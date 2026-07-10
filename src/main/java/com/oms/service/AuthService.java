@@ -27,15 +27,11 @@ public class AuthService {
         }
         Role customerRole = roleRepository.findByRoleName("CUSTOMER");
         
+
         if (customerRole == null) {
             customerRole = new Role();
-            customerRole.setRoleId(2); // Maps to standard user ID assignment constraint
             customerRole.setRoleName("CUSTOMER");
-            try {
-                customerRole = roleRepository.save(customerRole);
-            } catch (StringIndexOutOfBoundsException | NullPointerException e) {
-                
-            }
+            customerRole = roleRepository.save(customerRole);
         }
         
         User user = new User();
